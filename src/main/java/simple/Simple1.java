@@ -137,7 +137,7 @@ public class Simple1 {
      */
     public int[] plusOne(int[] digits) {
         int index = digits.length - 1;
-        while (index > 0) {
+        while (index >= 0) {
             if (digits[index] == 9) {
                 digits[index] = 0;
                 index--;
@@ -157,7 +157,7 @@ public class Simple1 {
 
     @Test
     public void testPlusOne() {
-        int[] arr = {4, 3, 2, 1};
+        int[] arr = {9};
         System.out.println(Arrays.toString(plusOne(arr)));
 
         int[] arr2 = {8, 8, 9};
