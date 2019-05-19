@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.lang.Character.*;
 
 public class Simple1 {
     @Test
@@ -164,22 +168,22 @@ public class Simple1 {
         int[] arr2 = {8, 8, 9};
         System.out.println(Arrays.toString(plusOne(arr2)));
 
-        int[] arr3 = {9,9,9};
+        int[] arr3 = {9, 9, 9};
         System.out.println(Arrays.toString(plusOne(arr3)));
     }
 
     /**
-      * 实现 int sqrt(int x) 函数。
-        计算并返回 x 的平方根，其中 x 是非负整数。
-        由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
-        示例 1:
-            输入: 4
-            输出: 2
-        示例 2:
-            输入: 8
-            输出: 2
-            说明: 8 的平方根是 2.82842...,
-            由于返回类型是整数，小数部分将被舍去。
+     * 实现 int sqrt(int x) 函数。
+     * 计算并返回 x 的平方根，其中 x 是非负整数。
+     * 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+     * 示例 1:
+     * 输入: 4
+     * 输出: 2
+     * 示例 2:
+     * 输入: 8
+     * 输出: 2
+     * 说明: 8 的平方根是 2.82842...,
+     * 由于返回类型是整数，小数部分将被舍去。
      */
     public int mySqrt(int x) {
         //牛顿迭代法
@@ -187,43 +191,43 @@ public class Simple1 {
             return 0;
         double cur = x;
         double last = 0;
-        while(Math.abs(cur - last) >= 1) {
+        while (Math.abs(cur - last) >= 1) {
             last = cur;
             cur = (cur * cur + x) / (2 * cur);
         }
-        return (int)Math.floor(cur);
+        return (int) Math.floor(cur);
     }
 
     @Test
-    public void  testMySqrt() {
+    public void testMySqrt() {
         System.out.println(mySqrt(34));
     }
 
     /**
      * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-         每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
-         注意：给定 n 是一个正整数。
-         示例 1：
-             输入： 2
-             输出： 2
-             解释： 有两种方法可以爬到楼顶。
-             1.  1 阶 + 1 阶
-             2.  2 阶
-         示例 2：
-             输入： 3
-             输出： 3
-             解释： 有三种方法可以爬到楼顶。
-             1.  1 阶 + 1 阶 + 1 阶
-             2.  1 阶 + 2 阶
-             3.  2 阶 + 1 阶
+     * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+     * 注意：给定 n 是一个正整数。
+     * 示例 1：
+     * 输入： 2
+     * 输出： 2
+     * 解释： 有两种方法可以爬到楼顶。
+     * 1.  1 阶 + 1 阶
+     * 2.  2 阶
+     * 示例 2：
+     * 输入： 3
+     * 输出： 3
+     * 解释： 有三种方法可以爬到楼顶。
+     * 1.  1 阶 + 1 阶 + 1 阶
+     * 2.  1 阶 + 2 阶
+     * 3.  2 阶 + 1 阶
      */
     public int climbStairs(int n) {
         //斐波那契数列
         int[] arr = new int[n + 1];
         arr[0] = 1;
         arr[1] = 1;
-        for(int i = 2; i < n + 1; i++) {
-            arr[i] = arr[i-1] + arr[i-2];
+        for (int i = 2; i < n + 1; i++) {
+            arr[i] = arr[i - 1] + arr[i - 2];
         }
         return arr[n];
     }
@@ -231,26 +235,62 @@ public class Simple1 {
 
     /**
      * 给定一个整数数组，判断是否存在重复元素。
- 	如果任何值在数组中出现至少两次，函数返回 true。如果数组中每个元素都不相同，则返回 false。
-	示例 1:
-	    输入: [1,2,3,1]
-	    输出: true
-	示例 2:
-	    输入: [1,2,3,4]
-	    输出: false
-	示例 3:
-	    输入: [1,1,1,3,3,4,3,2,4,2]
-	    输出: true
+     * 如果任何值在数组中出现至少两次，函数返回 true。如果数组中每个元素都不相同，则返回 false。
+     * 示例 1:
+     * 输入: [1,2,3,1]
+     * 输出: true
+     * 示例 2:
+     * 输入: [1,2,3,4]
+     * 输出: false
+     * 示例 3:
+     * 输入: [1,1,1,3,3,4,3,2,4,2]
+     * 输出: true
      */
     public boolean containsDuplicate(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < nums.length; i++) {
-            if(map.containsKey(nums[i])){
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
                 return true;
             }
             map.put(nums[i], i);
         }
         return false;
     }
+
+    /**
+     * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+     * 说明：本题中，我们将空字符串定义为有效的回文串。
+     * 示例 1:
+     * 输入: "A man, a plan, a canal: Panama"
+     * 输出: true
+     * 示例 2:
+     * 输入: "race a car"
+     * 输出: false
+     */
+    public boolean isPalindrome(String s) {
+        if (s == null)
+            return false;
+        if (s.length() == 0)
+            return true;
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (!Character.isLetterOrDigit(s.charAt(i))) {
+                i++;
+                continue;
+            }
+            if (!Character.isLetterOrDigit(s.charAt(j))) {
+                j--;
+                continue;
+            }
+            if (Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
 }
 
