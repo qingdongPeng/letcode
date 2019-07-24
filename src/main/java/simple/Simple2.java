@@ -2,10 +2,7 @@ package simple;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Simple2 {
 
@@ -115,4 +112,44 @@ public class Simple2 {
         System.out.println(removeElement(arr, 2));
     }
 
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     *
+     * 示例 1:
+     * 输入: [2,2,1]
+     * 输出: 1
+     * 示例 2:
+     * 输入: [4,1,2,1,2]
+     * 输出: 4
+     *
+     * 思路1: 通过map, 未出现则put, 出现了则remove
+     * 思路2: 通过异或操作, 0与任何数异或得到本身, 相同的数异或得到0
+     *       即把数组里所有数与0异或, 最后得到的就是那个只出现一次的数
+     */
+    public int singleNumberByMap(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if(map.containsKey(num)) {
+                map.remove(num);
+            } else {
+                map.put(num, 1);
+            }
+        }
+        return map.keySet().stream().findFirst().get();
+    }
+
+    public int singleNumberByMath(int[] nums) {
+        int result = 0;
+        for (int num : nums) {
+            result = result ^ num;
+        }
+        return result;
+    }
+
+    @Test
+    public void testSingleNumber() {
+        int[] arr = {1, 1, 2, 3, 2};
+        System.out.println(singleNumberByMath(arr));
+        System.out.println(singleNumberByMap(arr));
+    }
 }
